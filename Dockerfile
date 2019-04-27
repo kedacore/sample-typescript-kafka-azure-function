@@ -1,3 +1,12 @@
+# Need to pull in the Kafka extension as it's still in preview
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build-env
+
+COPY . /app
+
+RUN cd /app && \
+    rm -rf bin || true && \
+    dotnet build -o bin
+
 FROM mcr.microsoft.com/azure-functions/node:2.0
 
 ENV AzureWebJobsScriptRoot=/home/site/wwwroot
@@ -13,6 +22,6 @@ RUN add-apt-repository "deb http://security.debian.org/debian-security jessie/up
 RUN apt-get update && apt install -y librdkafka-dev 
 
 WORKDIR /home/site/wwwroot
-COPY . .
+COPY --from=build-env [ "/app", "." ]
 RUN npm install && \
     npm run-script build

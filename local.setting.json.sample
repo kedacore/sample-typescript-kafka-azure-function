@@ -3,10 +3,6 @@
   "Values": {
     "FUNCTIONS_WORKER_RUNTIME": "node",
     "AzureWebJobsStorage": "None",
-    "BrokerList": "kafka-cp-kafka-headless.default.svc.cluster.local:9092",
-    "ConsumerGroup": "functions",
-    "COGNITIVE_URL": "https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment",
-    "COGNITIVE_KEY": "<key-here>",
     "POWER_BI_URL": "<Power BI streaming dataset>"
   }
 }

@@ -13,7 +13,8 @@
   },
   "dependencies": {
     "@types/node": "^11.13.5",
-    "axios": "^0.18.0"
+    "axios": "^0.18.0",
+    "sentiment": "^5.0.1"
   },
   "devDependencies": {
     "@azure/functions": "^1.0.1-beta2",

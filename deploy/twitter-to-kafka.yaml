@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: twitter-to-kafka-deployment
+  labels:
+    app: twitter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: twitter
+  template:
+    metadata:
+      labels:
+        app: twitter
+    spec:
+      containers:
+      - name: twitter-to-kafka
+        image: jeffhollan/twitter-to-kafka
+        imagePullPolicy: Always
+        env:
+        - name: TWITTER_STREAMING_MODE
+          value: "normal"
+        - name: KAFKA_ENDPOINT
+          value: "kafka-cp-kafka-headless:9092"
+        - name: CONSUMER_KEY
+          value: "MG0xf5ZiDqLfBIpDbqQT3Ak3N"
+        - name: CONSUMER_SECRET
+          value: "RBpw98sxukm3kKYGwjZjeHF4A2GcWGL3HLK0q5CXv7xArLfAcr"
+        - name: ACCESS_TOKEN
+          value: "126868398-2uGdKhcRkIJ2vsOEpQE8UP1sfhRN6rRDjnu8OQL5"
+        - name: ACCESS_TOKEN_SECRET
+          value: "oqiewyaPj0QFDk3Xl2PUy02F600e8SB3oVYIw8dXqgaGh"
+        - name: KAFKA_TOPIC
+          value: "twitter"
+        - name: SEARCH_TERM
+          value: "avengers"
