@@ -1,0 +1,59 @@
+data:
+  FUNCTIONS_WORKER_RUNTIME: bm9kZQ==
+  AzureWebJobsStorage: Tm9uZQ==
+  POWER_BI_URL: aHR0cHM6Ly9hcGkucG93ZXJiaS5jb20vYmV0YS83MmY5ODhiZi04NmYxLTQxYWYtOTFhYi0yZDdjZDAxMWRiNDcvZGF0YXNldHMvMjVkYmRkMjAtZWM5OS00NDI2LTgyY2ItOGI3YTFlYmU2YTdlL3Jvd3M/a2V5PWRXNnpLeURYRWZMQTVycCUyRjdtNzFyaE55RU1hYVMwZUdOUm1ZOWlEMTdyUkxPbjIzOHBPWDFGWmo5M0sxWWszbzRnbW9wVmZFRng1NnNrc0tsb010clElM0QlM0Q=
+apiVersion: v1
+kind: Secret
+metadata:
+  name: twitter-function
+  namespace: default
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: twitter-function
+  namespace: default
+  labels:
+    app: twitter-function
+spec:
+  selector:
+    matchLabels:
+      app: twitter-function
+  template:
+    metadata:
+      labels:
+        app: twitter-function
+    spec:
+      containers:
+      - name: twitter-function
+        image: jeffhollan/twitter-function
+        env:
+        - name: AzureFunctionsJobHost__functions__0
+          value: KafkaTwitterTrigger
+        envFrom:
+        - secretRef:
+            name: twitter-function
+---
+apiVersion: keda.k8s.io/v1alpha1
+kind: ScaledObject
+metadata:
+  name: twitter-function
+  namespace: default
+  labels:
+    deploymentName: twitter-function
+spec:
+  scaleTargetRef:
+    deploymentName: twitter-function
+  triggers:
+  - type: kafka
+    metadata:
+      type: kafkaTrigger
+      direction: in
+      name: event
+      topic: twitter
+      brokers: kafka-cp-kafka-headless.default.svc.cluster.local:9092
+      consumerGroup: functions
+      dataType: binary
+      lagThreshold: '5'
+---
+

@@ -88,4 +88,3 @@ local.settings.json
 # TypeScript output
 dist
 out
-deploy.yaml
