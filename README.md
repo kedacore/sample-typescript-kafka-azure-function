@@ -114,5 +114,13 @@ kubectl logs twitter-function-<some-pod-Id>
 
 You should see logs streaming with tweet data and sentiment scores:
 
-```cli
+```bash
+info: Function.KafkaTwitterTrigger.User[0]
+      Tweet analyzed
+      Tweet text: RT @ballerguy: Yeah avengers endgame was good but I found out my boyfriend is a movie clapper so at what cost
+      Sentiment: 0.09523809523809523
+info: Function.KafkaTwitterTrigger[0]
+      Executed 'Functions.KafkaTwitterTrigger' (Succeeded, Id=67cc49a3-0e13-4fa8-b605-a041ce37420a)
+info: Host.Triggers.Kafka[0]
+      Stored commit offset twitter / [3] / 37119
 ```
