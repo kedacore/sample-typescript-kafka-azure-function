@@ -124,3 +124,16 @@ info: Function.KafkaTwitterTrigger[0]
 info: Host.Triggers.Kafka[0]
       Stored commit offset twitter / [3] / 37119
 ```
+
+## Clean up resources
+
+You can run the following to clean up resources created as part of this sample:
+
+```cli
+kubectl delete deploy/twitter-to-kafka-deployment
+kubectl delete deploy/twitter-function
+kubectl delete ScaledObject/twitter-function
+kubectl delete Secret/twitter-function
+kubectl delete pod kafka-client
+helm delete kafka
+```
