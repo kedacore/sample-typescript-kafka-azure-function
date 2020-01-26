@@ -51,7 +51,7 @@ spec:
       direction: in
       name: event
       topic: twitter
-      brokers: kafka-cp-kafka-headless.default.svc.cluster.local:9092
+      brokerList: kafka-cp-kafka-headless.default.svc.cluster.local:9092
       consumerGroup: functions
       dataType: binary
       lagThreshold: '5'
