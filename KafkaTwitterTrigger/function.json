@@ -1,13 +1,9 @@
 {
   "bindings": [
     {
-      "type": "kafkaTrigger",
-      "direction": "in",
-      "name": "event",
       "topic": "twitter",
       "brokerList": "kafka-cp-kafka-headless.default.svc.cluster.local:9092",
-      "consumerGroup": "functions",
-      "dataType": "binary"
+      "consumerGroup": "functions"
     }
   ],
   "scriptFile": "../dist/KafkaTwitterTrigger/index.js"
